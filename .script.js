@@ -1,61 +1,74 @@
-const videoGrid = document.getElementById('videoGrid');
+const videoGrid = document.getElementById("video-grid");
 
-// Mock data for videos
-const videos = Array.from({ length: 50 }, (_, index) => ({
-    thumbnail: `https://picsum.photos/320/180?random=${Math.random()}`,
-    title: `Video Title ${index + 1}`,
-    author: `Author ${Math.ceil(Math.random() * 10)}`,
-    stats: `${Math.ceil(Math.random() * 1_000_000)} views • ${Math.ceil(Math.random() * 12)} hours ago`,
-    video: `https://samplelib.com/lib/preview/mp4/sample-5s.mp4`
-}));
-
-// Function to create video cards
-function createVideoCard(video) {
-    const videoCard = document.createElement('div');
-    videoCard.classList.add('video-card');
-
-    videoCard.innerHTML = `
-        <div class="thumbnail">
-            <img src="${video.thumbnail}" alt="${video.title}">
-            <video muted loop preload="none">
-                <source src="${video.video}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div class="video-info">
-            <div class="video-title">${video.title}</div>
-            <div class="video-author">${video.author}</div>
-            <div class="video-stats">${video.stats}</div>
-        </div>
-    `;
-
-    videoCard.addEventListener('mouseenter', () => {
-        const videoElement = videoCard.querySelector('video');
-        videoElement.play(); // Play video on hover
-    });
-
-    videoCard.addEventListener('mouseleave', () => {
-        const videoElement = videoCard.querySelector('video');
-        videoElement.pause(); // Pause video when hover ends
-        videoElement.currentTime = 0; // Reset to the beginning
-    });
-
-    videoGrid.appendChild(videoCard);
+// 유튜브 스타일 랜덤 데이터 생성
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Load initial videos
-function loadVideos() {
-    videos.slice(0, 12).forEach(video => createVideoCard(video));
+function getRandomDate() {
+  const daysAgo = getRandomInt(1, 365);
+  return `${daysAgo} days ago`;
 }
 
-// Infinite scroll logic
-window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
-        const currentCount = document.querySelectorAll('.video-card').length;
-        const nextVideos = videos.slice(currentCount, currentCount + 12);
-        nextVideos.forEach(video => createVideoCard(video));
-    }
+function getRandomViews() {
+  return `${getRandomInt(1, 100)}K views`;
+}
+
+function getRandomTitle() {
+  const titles = [
+    "Learn JavaScript",
+    "Top 10 Coding Tips",
+    "React Tutorials",
+    "Fun with CSS",
+    "Exploring AI",
+    "Gaming Highlights",
+    "Travel Vlog",
+    "Fitness Journey",
+    "Space Exploration",
+  ];
+  return titles[getRandomInt(0, titles.length - 1)];
+}
+
+function getRandomAuthor() {
+  const authors = ["John Doe", "Jane Smith", "Tech Guru", "Travel Buddy", "Fitness Pro"];
+  return authors[getRandomInt(0, authors.length - 1)];
+}
+
+// 동영상 카드 생성 함수
+function createVideoItem() {
+  const videoItem = document.createElement("div");
+  videoItem.className = "video-item";
+
+  const thumbnail = `https://picsum.photos/320/180?random=${getRandomInt(1, 1000)}`;
+  const videoSrc = `https://samplelib.com/lib/preview/mp4/sample-${getRandomInt(5, 30)}s.mp4`;
+
+  videoItem.innerHTML = `
+    <img src="${thumbnail}" alt="Video Thumbnail">
+    <video src="${videoSrc}" muted loop></video>
+    <div class="video-info">
+      <p class="video-title">${getRandomTitle()}</p>
+      <p class="video-author">${getRandomAuthor()}</p>
+      <p class="video-stats">${getRandomViews()} • ${getRandomDate()}</p>
+    </div>
+  `;
+
+  return videoItem;
+}
+
+// 동영상 목록 로드 함수
+function loadVideos(count = 9) {
+  for (let i = 0; i < count; i++) {
+    const videoItem = createVideoItem();
+    videoGrid.appendChild(videoItem);
+  }
+}
+
+// 무한 스크롤 기능
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+    loadVideos(9);
+  }
 });
 
-// Initial load
-loadVideos();
+// 초기 동영상 로드
+loadVideos(12);
