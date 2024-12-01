@@ -1,72 +1,85 @@
-/* General Reset */
+/* Global styles */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #181818;
-    color: #fff;
-}
-
-/* Video Container */
-.video-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    background-color: #f9f9f9;
+  }
+  
+  #video-grid {
+    display: grid;
     gap: 16px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Video Card */
-.video-card {
-    flex: 1 1 calc(16.6% - 16px); /* Default: Show 6 videos per row */
-    max-width: calc(16.6% - 16px);
-    transition: flex 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.video-card:hover {
-    flex: 1 1 100%; /* Expand to full width on hover */
-    transform: scale(1.05);
-    z-index: 1;
-}
-
-.video-card iframe {
-    width: 100%;
-    height: 150px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Responsive layout */
+  @media (max-width: 600px) {
+    #video-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 1024px) {
+    #video-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    #video-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Video item styles */
+  .video-item {
+    position: relative;
+    overflow: hidden;
     border-radius: 8px;
-    border: none;
-    background-color: #000;
-}
-
-/* Responsive Design */
-/* 4 Videos per row (1024px ~ 768px) */
-@media (max-width: 1024px) {
-    .video-card {
-        flex: 1 1 calc(25% - 16px);
-        max-width: calc(25% - 16px);
-    }
-}
-
-/* 3 Videos per row (768px ~ 480px) */
-@media (max-width: 768px) {
-    .video-card {
-        flex: 1 1 calc(33.3% - 16px);
-        max-width: calc(33.3% - 16px);
-    }
-}
-
-/* 2 Videos per row (480px ~ 320px) */
-@media (max-width: 480px) {
-    .video-card {
-        flex: 1 1 calc(50% - 16px);
-        max-width: calc(50% - 16px);
-    }
-}
-
-/* 1 Video per row (320px and below) */
-@media (max-width: 320px) {
-    .video-card {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
-}
+    transition: transform 0.3s ease-in-out;
+    aspect-ratio: 16 / 9; /* 동영상 비율 고정 */
+  }
+  
+  .video-item:hover {
+    transform: scale(1.05); /* Hover 효과로 확대 */
+  }
+  
+  .video-item img,
+  .video-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .video-item video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .video-item:hover video {
+    opacity: 1; /* Hover 시 동영상 재생 */
+  }
+  
+  .video-info {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
+  .video-title {
+    font-weight: bold;
+  }
+  
+  .video-author {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .video-stats {
+    font-size: 12px;
+    color: #999;
+  }
