@@ -1,0 +1,224 @@
+/* Global styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  #video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* 유튜브의 동영상 카드 크기 */ 
+    gap: 16px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: start;
+  }
+  
+  /* Responsive layout */
+  @media (max-width: 600px) {
+    #video-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 1024px) {
+    #video-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    #video-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Video item styles */
+  .video-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* 유튜브 비율 */
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #000; /* 비디오 없을 때 배경 */
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .video-item:hover {
+    transform: scale(1.05); /* Hover 효과로 확대 */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* 그림자 강조 */
+  }
+  
+  .video-item img,
+  .video-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .video-item video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .video-item:hover video {
+    opacity: 1; /* Hover 시 동영상 재생 */
+  }
+  
+  .video-info {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
+  .video-title {
+    font-weight: bold;
+  }
+  
+  .video-author {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .video-stats {
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* 호버 효과 및 동영상 카드 스타일 */
+ /* 동영상 카드 스타일 */
+.video-item {
+  position: relative;
+  width: 100%; /* 부모의 너비를 채움 */
+  aspect-ratio: 16 / 9; /* 16:9 비율 유지 */
+  margin: 10px 0; /* 카드 간격 */
+  border-radius: 8px; /* 둥근 모서리 */
+  overflow: hidden; /* 모서리 밖 요소 숨김 */
+  background: #000; /* 비디오 없을 때 배경 */
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 
+              0px 1px 2px rgba(0, 0, 0, 0.24); /* 기본 그림자 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* 부드러운 애니메이션 */
+}
+
+.video-item:hover {
+  transform: scale(1.02); /* 호버 시 살짝 확대 */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25), 
+              0px 2px 4px rgba(0, 0, 0, 0.22); /* 호버 시 그림자 강조 */
+}
+
+/* iframe 스타일 */
+.video-item iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* 부모의 너비 채움 */
+  height: 100%; /* 부모의 높이 채움 */
+  border: none; /* 기본 테두리 제거 */
+  background-color: transparent;
+  border-radius: 12px; /* iframe에도 둥근 모서리 적용 */
+  transition: border-radius 0.2s ease; /* 모서리 전환 애니메이션 */
+}
+
+.video-item:hover iframe {
+  border-radius: 12px; /* 호버 시에도 둥근 모서리 유지 */
+}
+
+.video-item iframe:focus,
+.video-item iframe:active {
+  border-radius: 0px; /* 재생 시 네모난 화면 */
+}
+
+.video-card {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #000; /* 검은색 배경 */
+  margin-bottom: 16px;
+  border: none; /* 카드 자체의 테두리 제거 */
+  box-shadow: none; /* 그림자 제거 */
+}
+
+.video-card iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none; /* iframe의 기본 테두리 제거 */
+  background: transparent; /* iframe 배경 투명 설정 */
+}
+
+/* 반응형 동영상 카드 */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.video-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: black;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+
+.video-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.thumbnail-row iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* 카드 비율 고정 */
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* 작은 화면에서는 동영상 크기 축소 */
+  }
+}
+
+/* 비디오 정보 스타일 */
+.video-info {
+  padding: 12px 8px;
+  font-size: 14px;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-author {
+  font-size: 13px;
+  color: #666;
+}
+
+.video-stats {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
